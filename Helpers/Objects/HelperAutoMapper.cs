@@ -41,4 +41,13 @@ public static class HelperAutoMapper
         });
         return config.CreateMapper().Map<TModel, TDto>(model);
     }
+    public static TModel ConvertTaksDtoToModel<TDto, TModel>(this TDto dto)
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<TaksDto, Tasks>();
+        });
+        return config.CreateMapper().Map<TDto, TModel>(dto);
+    }
+
 }

@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models;
 
-public class TaskStatus
+public class TaksStatus
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdTaskStatus { set; get; }
     [MaxLength(20)]
     public string? NameStatus { set; get; }

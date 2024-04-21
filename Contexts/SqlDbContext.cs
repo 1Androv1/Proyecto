@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Models;
-using TaskStatus = Models.TaskStatus;
 
 namespace Contexts;
 
 public class SqlDbContext(DbContextOptions<SqlDbContext> options) : DbContext(options)
 {
     public DbSet<Users>? Users { get; set; }
-    public DbSet<Taks>? Tasks { get; set; }
-    public DbSet<TaskStatus>? TaskStatus { set; get; }
+    public DbSet<Tasks>? Tasks { get; set; }
+    public DbSet<TaksStatus>? TaskStatus { set; get; }
     public DbSet<TaskUser>? TaskUsers { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -17,7 +15,7 @@ public class SqlDbContext(DbContextOptions<SqlDbContext> options) : DbContext(op
         #region Users
         
         modelBuilder
-            .Entity<Taks>()
+            .Entity<Tasks>()
             .ToTable("Tasks")
             .HasKey(t => t.IdTask);
         

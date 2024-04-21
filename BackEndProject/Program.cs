@@ -11,9 +11,15 @@ var glpsConnectionString = builder.Configuration.GetConnectionString("CONNECTION
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<SqlDbContext>(options =>
+    options.UseSqlServer(glpsConnectionString,
+        builder => builder.MigrationsAssembly("BackEndProject")));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITaskService, TaksService>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+
 
 
 

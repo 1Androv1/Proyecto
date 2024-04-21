@@ -12,11 +12,6 @@ public class UserService(IUserRepository userRepository) : IUserService
 {
     public async Task SaveAnNewUser(UserDto userDto)
     {
-        var validateUser = userRepository.ValidateIfUserExist(userDto.Email);
-        
-        if(validateUser != null)
-            throw new ValidationException($"The User already exists.");
-        
         var user = userDto.ConvertUserDtoToModel<UserDto, Users>();
         await userRepository.SaveNewUser(user);
     }
