@@ -30,10 +30,10 @@ public class UserRepository(SqlDbContext sqlDbContext) : IUserRepository
             .FirstAsync();
     }
     
-    public Task<Users> ValidateIfUserExist(string? email)
+    public Task<Users> ValidateIfUserExist(int? idUser)
     {
         return sqlDbContext.Users!
-            .Where(t => t.Email == email)
+            .Where(t => t.IdUser == idUser)
             .FirstAsync();
     }
 }

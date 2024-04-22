@@ -7,7 +7,7 @@ using System.Net.Mail;
 
 namespace Repositories;
 
-public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepository
+public class AlimentosRepository(SqlDbContext sqlDbContext, IUserRepository userRepository): IAlimentosRepository
 {
     public async Task<List<Alimentos>> GetAllAlimentos()
     {
@@ -57,6 +57,10 @@ public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepositor
     
     public async Task CompraAlimentos(Alimentos? alimentos, int cantidadCompra, int idUser, int alimentosId)
     {
+
+        var infoUser = await userRepository.ValidateIfUserExist(idUser);
+        var emailUser = infoUser.Email;
+        
         if (alimentos == null)
             throw new ArgumentNullException(nameof(alimentos), "El Alimento proporcionado es nulo.");
 
@@ -93,7 +97,7 @@ public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepositor
 
             await sqlDbContext.SaveChangesAsync();
             
-            EnvioCorreo("androv389@gmail.com", alimentoExistente.Nombre, alimentoExistente.Precio, cantidadCompra);
+            EnvioCorreo(emailUser!, alimentoExistente.Nombre, alimentoExistente.Precio, cantidadCompra);
             await transaction.CommitAsync();
             
         }
@@ -110,7 +114,6 @@ public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepositor
         {
             using (MailMessage mailMessage = new MailMessage())
             {
-                //Destinatario
                 mailMessage.To.Add(email);
 
                 mailMessage.Subject = "Compra Realizada";
