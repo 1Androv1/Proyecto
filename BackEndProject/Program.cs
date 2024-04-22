@@ -8,13 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 var glpsConnectionString = builder.Configuration.GetConnectionString("CONNECTION_STRING");
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Configurar Swagger/OpenAPI
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Configurar DbContext para Entity Framework Core
 builder.Services.AddDbContext<SqlDbContext>(options =>
     options.UseSqlServer(glpsConnectionString,
         builder => builder.MigrationsAssembly("BackEndProject")));
 
+// Registrar servicios y repositorios
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskService, TaksService>();
@@ -22,15 +27,21 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IAlimentosService, AlimentosService>();
 builder.Services.AddScoped<IAlimentosRepository, AlimentosRepository>();
 
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<SqlDbContext>(
-    options => options.UseSqlServer(
-        glpsConnectionString
-    )
-);
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "Cors",
+        policy =>
+        {
+            policy.WithOrigins(
+                    "http://localhost:5235",
+                    "http://localhost:5500"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -39,10 +50,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Aplicar middleware de CORS antes del enrutamiento
+    app.UseCors("Cors");
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();

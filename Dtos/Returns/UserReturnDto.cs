@@ -1,4 +1,6 @@
-﻿namespace Dtos.Returns;
+﻿using Models;
+
+namespace Dtos.Returns;
 
 public class UserReturnDto
 {
@@ -7,4 +9,5 @@ public class UserReturnDto
     public string? LastName { set; get; }
     public string? Email { set; get; }
     public string? Password { set; get; }
+    public int RolId { set; get; }
 }

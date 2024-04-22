@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dtos;
+using Dtos.Returns;
 using Models;
 
 namespace Helpers.Objects;
@@ -47,7 +48,7 @@ public static class HelperAutoMapper
     {
         var config = new MapperConfiguration(cfg =>
         {
-            cfg.CreateMap<TModel, TDto>();
+            cfg.CreateMap<Users, UserReturnDto>();
         });
         return config.CreateMapper().Map<TModel, TDto>(model);
     }

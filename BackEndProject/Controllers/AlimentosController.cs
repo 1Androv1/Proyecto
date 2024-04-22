@@ -57,7 +57,7 @@ namespace BackEndProject.Controllers
         [HttpPost, Route("updateAlimentos")]
         [SwaggerOperation(
             Summary = "Update an Alimentos.",
-            Tags = ["Task"]
+            Tags = ["Alimentos"]
         )]
        
         public async Task<IActionResult> UpdateTask([FromBody] AlimentosUpdateDto alimentosUpdateDto)
@@ -77,10 +77,10 @@ namespace BackEndProject.Controllers
             }
         }
         
-        [HttpGet, Route("deleteAlimento/{id}")]
+        [HttpDelete, Route("deleteAlimento/{id}")]
         [SwaggerOperation(
             Summary = "Delete an Alimento.",
-            Tags = ["Task"]
+            Tags = ["Alimentos"]
         )]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -94,6 +94,29 @@ namespace BackEndProject.Controllers
                 await alimentosService.DeletedAlimentosId(id);
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
+        
+        [HttpPost, Route("comprarAlimentos")]
+        [SwaggerOperation(
+            Summary = "Compra Alimentos",
+            Tags = ["Alimentos"]
+        )]
+       
+        public async Task<IActionResult> UpdateTask([FromBody] AlimentosCompraDto alimentosCompraDto)
+        {
+            try
+            {
+                await alimentosService.CompraAlimentos(alimentosCompraDto, alimentosCompraDto.UserId, alimentosCompraDto.IdAlimentos);
+                return Created(string.Empty, new BasicReturnCreatedDto());
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(HelperError.GetErrorAndInnerError(ex));
             }
             catch (Exception e)
             {

@@ -9,6 +9,6 @@ public class Pedidos
     public int IdPedidos { get; set; }
     public int UserId { get; set; }
     public DateTime FechaPedido { get; set; }
-    [ForeignKey("UserID")]
+    [ForeignKey("UserId")]
     public Users? Users { get; set; }
 }

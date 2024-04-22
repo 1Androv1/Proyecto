@@ -39,4 +39,26 @@ public class AlimentosService(IAlimentosRepository alimentosRepository): IAlimen
     {
         await alimentosRepository.DeletedAlimentosId(idTask);
     }
+    
+    public async Task CompraAlimentos(AlimentosCompraDto alimentosCompraDto, int idUser, int alimentosId)
+    {
+        int idAlimentos = alimentosCompraDto.IdAlimentos;
+        var alimentosExist = await alimentosRepository.GetDetailAlimentos(idAlimentos);
+        
+        if(alimentosCompraDto.CantidadDisponible > alimentosExist!.CantidadDisponible)
+            throw new ValidationException($"No puedes comprar mas de la cantidad que cuenta el producto, Cantidad: {alimentosExist.CantidadDisponible}");
+
+        if (alimentosExist == null)
+            throw new ValidationException($"Los Alimento {idAlimentos} no existen");
+
+        Alimentos alimentosModel = new Alimentos
+        {
+            Nombre = alimentosCompraDto.Nombre,
+            Descripción = alimentosCompraDto.Descripción,
+            Precio = alimentosCompraDto.Precio,
+            CantidadDisponible = alimentosCompraDto.CantidadDisponible
+        };        
+        
+        await alimentosRepository.CompraAlimentos(alimentosModel, alimentosCompraDto.CantidadDisponible, idUser, alimentosId);
+    }
 }

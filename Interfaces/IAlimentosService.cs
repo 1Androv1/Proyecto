@@ -9,4 +9,5 @@ public interface IAlimentosService
     Task UpdateAlimentos(AlimentosUpdateDto alimentosUpdateDto);
     Task<AlimentosDto?> GetDetailAlimentos(int idAlimentos);
     Task DeletedAlimentosId(int idAlimentos);
+    Task CompraAlimentos(AlimentosCompraDto alimentosCompraDto, int idUser, int alimentosId);
 }
