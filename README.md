@@ -33,3 +33,8 @@ la cual su inferzas se vera asi:
 recordar que el usuario que ustedes creen solo inciara con el rol de cliente la cual es el que realiza compras: 
 
 ![image](https://github.com/1Androv1/Proyecto/assets/108690204/156f8c3d-b413-462f-896c-036ece2d9335)
+
+una vez creen el usuario y realicen la compra les llegara el correo de el resultado de la compra que realizaron: 
+
+![image](https://github.com/1Androv1/Proyecto/assets/108690204/c261dd13-0ddc-4eb0-9f3f-5a298c58b20e)
+
