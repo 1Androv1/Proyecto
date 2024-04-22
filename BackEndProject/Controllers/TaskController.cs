@@ -9,10 +9,10 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BackEndProject.Controllers
 {
     [ApiController]
-    [Route("api/saveTask")]
+    [Route("api")]
     public class TaskController(ITaskService taskService) : ControllerBase
     {
-        [HttpPost, Route("")]
+        [HttpPost, Route("saveTask")]
         [SwaggerOperation(
             Summary = "Create a new Task in Task table.",
             OperationId = "SaveNewTask",
@@ -36,9 +36,9 @@ namespace BackEndProject.Controllers
             }
         }
         
-        [HttpPut, Route("")]
+        [HttpPost, Route("updateTask")]
         [SwaggerOperation(
-            Summary = "Update an user.",
+            Summary = "Update an Task.",
             Tags = ["Task"]
         )]
        
@@ -52,6 +52,30 @@ namespace BackEndProject.Controllers
             catch (ValidationException ex)
             {
                 return BadRequest(HelperError.GetErrorAndInnerError(ex));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
+        
+        [HttpGet, Route("deleteTask/{id}")]
+        [SwaggerOperation(
+            Summary = "Delete an Task.",
+            Tags = ["Task"]
+        )]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            try
+            {
+                var task = await taskService.GetDetailTask(id);
+
+                if (task == null)
+                    throw new InvalidOperationException($"No se encontró ninguna tarea con IdTask = {task!.IdTask}.");
+
+                await taskService.DeletedTaskId(id);
+
+                return Ok();
             }
             catch (Exception e)
             {
