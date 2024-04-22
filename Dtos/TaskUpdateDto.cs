@@ -2,7 +2,7 @@
 
 public class TaskUpdateDto
 {
-    public int TaskId { set; get; }
+    public int IdTask { set; get; }
     public string? NameTask { set; get; } 
     public string? Description { set; get; }
     public DateTime? StartTime { set; get; }
