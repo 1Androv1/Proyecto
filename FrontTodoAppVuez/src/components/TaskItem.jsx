@@ -16,11 +16,11 @@ export const TaskItemToDo = ({item}) => {
                         </button>
                         <button className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
                             <svg width="20" height="26" viewBox="0 0 44 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M42 9.05859H2" stroke="#B82323" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M16.1177 20.8232L17.2941 32.5879" stroke="#B82323" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M27.882 20.8232L26.7056 32.5879" stroke="#B82323" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M9.05859 9.05878C9.19008 9.05878 9.25582 9.05878 9.31542 9.05728C11.2529 9.00817 12.9621 7.77622 13.6214 5.95367C13.6417 5.8976 13.6625 5.83525 13.7041 5.7105L13.9325 5.02518C14.1275 4.44017 14.225 4.14766 14.3543 3.89928C14.8703 2.90839 15.825 2.22033 16.9282 2.04416C17.2047 2 17.5131 2 18.1298 2H25.8696C26.4863 2 26.7947 2 27.0712 2.04416C28.1745 2.22033 29.1291 2.90839 29.6451 3.89928C29.7745 4.14766 29.8719 4.44017 30.0669 5.02518L30.2954 5.7105C30.3368 5.83508 30.3578 5.89765 30.378 5.95367C31.0373 7.77622 32.7465 9.00817 34.6841 9.05728C34.7436 9.05878 34.8093 9.05878 34.9408 9.05878" stroke="#B82323" stroke-width="3"/>
-                                <path d="M36.9969 31.1745C36.5804 37.4213 36.3722 40.5448 34.3369 42.4488C32.3016 44.353 29.1713 44.353 22.9106 44.353H21.0909C14.8302 44.353 11.6999 44.353 9.66455 42.4488C7.62925 40.5448 7.42101 37.4213 7.00457 31.1745L5.92236 14.9414M38.079 14.9414L37.6084 22.0002" stroke="#B82323" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M42 9.05859H2" stroke="#B82323" strokeWidth="3" strokeLinecap="round"/>
+                                <path d="M16.1177 20.8232L17.2941 32.5879" stroke="#B82323" strokeWidth="3" strokeLinecap="round"/>
+                                <path d="M27.882 20.8232L26.7056 32.5879" stroke="#B82323" strokeWidth="3" strokeLinecap="round"/>
+                                <path d="M9.05859 9.05878C9.19008 9.05878 9.25582 9.05878 9.31542 9.05728C11.2529 9.00817 12.9621 7.77622 13.6214 5.95367C13.6417 5.8976 13.6625 5.83525 13.7041 5.7105L13.9325 5.02518C14.1275 4.44017 14.225 4.14766 14.3543 3.89928C14.8703 2.90839 15.825 2.22033 16.9282 2.04416C17.2047 2 17.5131 2 18.1298 2H25.8696C26.4863 2 26.7947 2 27.0712 2.04416C28.1745 2.22033 29.1291 2.90839 29.6451 3.89928C29.7745 4.14766 29.8719 4.44017 30.0669 5.02518L30.2954 5.7105C30.3368 5.83508 30.3578 5.89765 30.378 5.95367C31.0373 7.77622 32.7465 9.00817 34.6841 9.05728C34.7436 9.05878 34.8093 9.05878 34.9408 9.05878" stroke="#B82323" strokeWidth="3"/>
+                                <path d="M36.9969 31.1745C36.5804 37.4213 36.3722 40.5448 34.3369 42.4488C32.3016 44.353 29.1713 44.353 22.9106 44.353H21.0909C14.8302 44.353 11.6999 44.353 9.66455 42.4488C7.62925 40.5448 7.42101 37.4213 7.00457 31.1745L5.92236 14.9414M38.079 14.9414L37.6084 22.0002" stroke="#B82323" strokeWidth="3" strokeLinecap="round"/>
                             </svg>
                         </button>
                     </div>
@@ -45,8 +45,8 @@ export const TaskItemInProgress = ({item}) => {
                         <span>00:00:00</span>
                         <button disabled className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
                             <svg width="20" height="26" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 13.1113V22.0002L28.6667 28.6669" stroke="#A4D934" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M22 42C33.0457 42 42 33.0457 42 22C42 10.9543 33.0457 2 22 2C10.9543 2 2 10.9543 2 22C2 33.0457 10.9543 42 22 42Z" stroke="#A4D934" stroke-width="3"/>
+                                <path d="M22 13.1113V22.0002L28.6667 28.6669" stroke="#A4D934" strokeWidth="3" strokeLinecap="round"/>
+                                <path d="M22 42C33.0457 42 42 33.0457 42 22C42 10.9543 33.0457 2 22 2C10.9543 2 2 10.9543 2 22C2 33.0457 10.9543 42 22 42Z" stroke="#A4D934" strokeWidth="3"/>
                             </svg>
                         </button>
                     </div>
@@ -71,8 +71,8 @@ export const TaskItemCompleted = ({item}) => {
                         <button disabled className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
                             <svg width="20" height="20" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.1" d="M1 26C1 5.4125 5.4125 1 26 1C46.5875 1 51 5.4125 51 26C51 46.5875 46.5875 51 26 51C5.4125 51 1 46.5875 1 26Z" fill="#519A45"/>
-                                <path d="M1 26C1 5.4125 5.4125 1 26 1C46.5875 1 51 5.4125 51 26C51 46.5875 46.5875 51 26 51C5.4125 51 1 46.5875 1 26Z" stroke="#519A45" stroke-width="2"/>
-                                <path d="M17.6665 25.9999L22.3409 30.6743C22.8276 31.161 23.6165 31.161 24.1032 30.6743L34.3332 20.4443" stroke="#519A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1 26C1 5.4125 5.4125 1 26 1C46.5875 1 51 5.4125 51 26C51 46.5875 46.5875 51 26 51C5.4125 51 1 46.5875 1 26Z" stroke="#519A45" strokeWidth="2"/>
+                                <path d="M17.6665 25.9999L22.3409 30.6743C22.8276 31.161 23.6165 31.161 24.1032 30.6743L34.3332 20.4443" stroke="#519A45" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                         </button>
                     </div>
