@@ -14,10 +14,9 @@ namespace BackEndProject.Controllers
     {
         [HttpGet, Route("allTask")]
         [SwaggerOperation(
-            Summary = "Get the list the user and his rols.",
             Description = "This endpoint is only for tests.",
-            OperationId = "GetTheUsers",
-            Tags = ["User"]
+            OperationId = "GetTheTask",
+            Tags = ["Task"]
         )]
         public async Task<IActionResult> GetTheUsers()
         {

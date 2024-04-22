@@ -19,8 +19,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskService, TaksService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-
-
+builder.Services.AddScoped<IAlimentosService, AlimentosService>();
+builder.Services.AddScoped<IAlimentosRepository, AlimentosRepository>();
 
 
 builder.Services.AddEndpointsApiExplorer();

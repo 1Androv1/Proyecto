@@ -69,4 +69,13 @@ public static class HelperAutoMapper
         });
         return config.CreateMapper().Map<List<TModel>, List<TDto>>(models);
     }
+    
+    public static List<TDto> ConvertAlimentosListToDto<TModel, TDto>(this List<TModel> models)
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Alimentos, AlimentosListDto>();
+        });
+        return config.CreateMapper().Map<List<TModel>, List<TDto>>(models);
+    }
 }
