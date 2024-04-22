@@ -40,7 +40,6 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
         
         await sqlDbContext.SaveChangesAsync();
     }
-    
     public async Task DeletedTaskId(int idTask)
     {
         var taskDelete = await sqlDbContext.Tasks!

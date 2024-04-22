@@ -34,6 +34,15 @@ public static class HelperAutoMapper
         return config.CreateMapper().Map<TDto, TModel>(dto);
     }
     
+    public static TModel ConvertAlimentosDtoToModel<TDto, TModel>(this TDto dto)
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<AlimentosDto, Alimentos>();
+        });
+        return config.CreateMapper().Map<TDto, TModel>(dto);
+    }
+    
     public static TDto ConvertUserToDto<TModel, TDto>(this TModel model)
     {
         var config = new MapperConfiguration(cfg =>
@@ -58,7 +67,14 @@ public static class HelperAutoMapper
         });
         return config.CreateMapper().Map<TModel, TDto>(model);
     }
-    
+    public static TDto ConvertModelAlimentosIdToDto<TModel, TDto>(this TModel model)
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Alimentos, AlimentosDto>();
+        });
+        return config.CreateMapper().Map<TModel, TDto>(model);
+    }
     public static List<TDto> ConvertTaskListToDto<TModel, TDto>(this List<TModel> models)
     {
         var config = new MapperConfiguration(cfg =>
