@@ -29,6 +29,7 @@ public static class HelperAutoMapper
         var config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<UserDto, Users>();
+            cfg.CreateMap<RolDto, Rols>();
         });
         return config.CreateMapper().Map<TDto, TModel>(dto);
     }

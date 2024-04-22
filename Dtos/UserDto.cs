@@ -7,4 +7,5 @@ public class UserDto
     public string? LastName { set; get; }
     public string? Email { set; get; }
     public string? Password { set; get; }
+    public int RolId { set; get; }
 }

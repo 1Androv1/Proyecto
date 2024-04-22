@@ -15,4 +15,6 @@ public class Users
     public string? Email { set; get; }
     [MaxLength(20)]
     public string? Password { set; get; }
+    public int RolId { set; get; }
+    [ForeignKey("RolId")] public Rols? Rols { get; set; }
 }
