@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="assets/logo-vt.svg" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap Register Page</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+        crossorigin="anonymous"
+    />
+</head>
+<body class="bg-info d-flex justify-content-center align-items-center vh-100">
+<div
+    class="bg-white p-5 rounded-5 text-secondary shadow"
+    style="width: 25rem"
+>
+    <div class="d-flex justify-content-center">
+        <img
+            src="../assets/login-icon.svg"
+            alt="register-icon"
+            style="height: 7rem"
+        />
+    </div>
+    <div class="text-center fs-1 fw-bold">Register</div>
+    <div class="input-group mt-4">
+        <div class="input-group-text bg-info">
+            <img
+                src="../assets/username-icon.svg"
+                alt="user-icon"
+                style="height: 1rem"
+            />
+        </div>
+        <input
+            class="form-control bg-light"
+            type="text"
+            id="name"
+            placeholder="Name"
+        />
+    </div>
+    <div class="input-group mt-1">
+        <div class="input-group-text bg-info">
+            <img
+                src="../assets/username-icon.svg"
+                alt="user-icon"
+                style="height: 1rem"
+            />
+        </div>
+        <input
+            class="form-control bg-light"
+            type="text"
+            id="lastName"
+            placeholder="Last Name"
+        />
+    </div>
+    <div class="input-group mt-1">
+        <div class="input-group-text bg-info">
+            <img
+                src="../assets/username-icon.svg"
+                alt="email-icon"
+                style="height: 1rem"
+            />
+        </div>
+        <input
+            class="form-control bg-light"
+            type="email"
+            id="email"
+            placeholder="Email"
+        />
+    </div>
+    <div class="input-group mt-1">
+        <div class="input-group-text bg-info">
+            <img
+                src="../assets/password-icon.svg"
+                alt="password-icon"
+                style="height: 1rem"
+            />
+        </div>
+        <input
+            class="form-control bg-light"
+            type="password"
+            id="password"
+            placeholder="Password"
+        />
+    </div>
+    <div class="input-group mt-1">
+        <div class="input-group-text bg-info">
+            <img
+                src="../assets/password-icon.svg"
+                alt="lock-icon"
+                style="height: 1rem"
+            />
+        </div>
+        <input
+            class="form-control bg-light"
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+        />
+    </div>
+    <button id="registerForm" class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm">Register</button>
+    <div class="d-flex gap-1 justify-content-center mt-1">
+        <div>Already have an account?</div>
+        <a href="../index.html" class="text-decoration-none text-info fw-semibold"
+        >Login</a
+        >
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById('registerForm').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        var name = document.getElementById('name').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Verificar que las contraseñas coincidan
+        if (password !== confirmPassword) {
+            console.error('Passwords do not match');
+            return;
+        }
+
+        var data = {
+            name: name,
+            lastName: lastName,
+            email: email,
+            password: password,
+            rolId: 2
+        };
+
+        console.log('Enviando solicitud a: http://localhost:5235/api/users/registerUser');
+        console.log('Datos enviados:', JSON.stringify(data));
+
+        fetch('http://localhost:5235/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to register');
+                }
+            })
+            .then(data => {
+                console.log('Registration successful', data);
+                // Aquí podrías redirigir a otra página, mostrar un mensaje de éxito, etc.
+            })
+            .catch(error => {
+                console.error('Registration error', error);
+            });
+    });
+</script>
+</html>
