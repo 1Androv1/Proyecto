@@ -36,4 +36,11 @@ public class TaksService(ITaskRepository taskRepository) : ITaskService
     {
         await taskRepository.DeletedTaskId(idTask);
     }
+    
+    public async Task<List<TaskListDto>> GetAllTask()
+    {
+        var tasks = await taskRepository.GetAllTasks();
+        var tasksDto = tasks.ConvertTaskListToDto<Tasks, TaskListDto>();
+        return tasksDto;
+    }
 }

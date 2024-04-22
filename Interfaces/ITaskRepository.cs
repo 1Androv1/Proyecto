@@ -8,4 +8,5 @@ public interface ITaskRepository
     Task<Tasks?> GetDetailTask(int id);
     Task UpdateTask(Tasks? tasks);
     Task DeletedTaskId(int idTask);
+    Task<List<Tasks>> GetAllTasks();
 }

@@ -12,6 +12,25 @@ namespace BackEndProject.Controllers
     [Route("api")]
     public class TaskController(ITaskService taskService) : ControllerBase
     {
+        [HttpGet, Route("allTask")]
+        [SwaggerOperation(
+            Summary = "Get the list the user and his rols.",
+            Description = "This endpoint is only for tests.",
+            OperationId = "GetTheUsers",
+            Tags = ["User"]
+        )]
+        public async Task<IActionResult> GetTheUsers()
+        {
+            try
+            {
+                return Ok(await taskService.GetAllTask());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
+
         [HttpPost, Route("saveTask")]
         [SwaggerOperation(
             Summary = "Create a new Task in Task table.",

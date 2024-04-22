@@ -8,4 +8,5 @@ public interface ITaskService
     Task UpdateATask(TaskUpdateDto taskUpdateDto);
     Task<TaksDto?> GetDetailTask(int idTask);
     Task DeletedTaskId(int idTask);
+    Task<List<TaskListDto>> GetAllTask();
 }

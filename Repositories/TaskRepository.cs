@@ -53,4 +53,12 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
             await sqlDbContext.SaveChangesAsync();
         }
     }
+    public async Task<List<Tasks>> GetAllTasks()
+    {
+        return await sqlDbContext.Tasks!
+            .Include(ts => ts.Status)
+            .Include(u => u.User)
+            .Include(u2 => u2.OwnerUser)
+            .ToListAsync();
+    }
 }

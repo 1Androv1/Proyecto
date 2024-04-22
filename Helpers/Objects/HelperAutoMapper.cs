@@ -57,4 +57,15 @@ public static class HelperAutoMapper
         });
         return config.CreateMapper().Map<TModel, TDto>(model);
     }
+    
+    public static List<TDto> ConvertTaskListToDto<TModel, TDto>(this List<TModel> models)
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Tasks, TaskListDto>();
+            cfg.CreateMap<TaksStatus, TaksStatusListDto>();
+            cfg.CreateMap<Users, UsersListDto>();
+        });
+        return config.CreateMapper().Map<List<TModel>, List<TDto>>(models);
+    }
 }
