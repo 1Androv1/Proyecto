@@ -1,7 +1,9 @@
-﻿using Interfaces;
+﻿using System.Net;
+using Interfaces;
 using Contexts;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System.Net.Mail;
 
 namespace Repositories;
 
@@ -71,8 +73,6 @@ public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepositor
             await sqlDbContext.Pedidos!.AddAsync(pedido);
             await sqlDbContext.SaveChangesAsync();
             
-            Console.WriteLine("ALIMENTOID: "+ alimentosId);
-            
             DetallesPedido detallePedido = new DetallesPedido
             {
                 PedidoId = pedido.IdPedidos,
@@ -92,13 +92,49 @@ public class AlimentosRepository(SqlDbContext sqlDbContext): IAlimentosRepositor
             alimentoExistente.CantidadDisponible -= cantidadCompra;
 
             await sqlDbContext.SaveChangesAsync();
-
+            
+            EnvioCorreo("androv389@gmail.com", alimentoExistente.Nombre, alimentoExistente.Precio, cantidadCompra);
             await transaction.CommitAsync();
+            
         }
         catch (Exception)
         {
             await transaction.RollbackAsync();
             throw; 
+        }
+    }
+
+    public void EnvioCorreo(string email, string? nombreAlimento, decimal precio, int cantidadCompra)
+    {
+        try
+        {
+            using (MailMessage mailMessage = new MailMessage())
+            {
+                //Destinatario
+                mailMessage.To.Add(email);
+
+                mailMessage.Subject = "Compra Realizada";
+                mailMessage.Body = $"Realizaste una compra de {cantidadCompra} {nombreAlimento}, con precio de ${precio*cantidadCompra}";
+                mailMessage.IsBodyHtml = false;
+
+                mailMessage.From = new MailAddress("rojaspruebasalejandro@gmail.com", "ALERTA");
+
+                using (SmtpClient cliente = new SmtpClient())
+                {
+                    cliente.UseDefaultCredentials = false;
+                    cliente.Credentials = new NetworkCredential("rojaspruebasalejandro@gmail.com", "fqrh phga jgli cmrv");
+                    cliente.Port = 587;
+                    cliente.EnableSsl = true;
+
+                    cliente.Host = "smtp.gmail.com";
+                    cliente.Send(mailMessage);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }
