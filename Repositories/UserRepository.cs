@@ -31,7 +31,8 @@ public class UserRepository(SqlDbContext sqlDbContext) : IUserRepository
             .Where(t => t.Email == userEmail)
             .FirstAsync();
 
-        EnvioCorreo(user.Email, user.Name + " " + user.LastName);
+        if(user.Verification == false)
+            EnvioCorreo(user.Email, user.Name + " " + user.LastName);
         
         return user;
     }

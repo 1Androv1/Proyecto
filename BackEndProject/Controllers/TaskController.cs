@@ -4,6 +4,7 @@ using Dtos.Returns;
 using Helpers.Errors;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace BackEndProject.Controllers
@@ -32,7 +33,7 @@ namespace BackEndProject.Controllers
         
         [HttpGet, Route("filterTask")]
         [SwaggerOperation(
-            Description = "This endpoint is only for tests.",
+            Description = "This filter task by name.",
             OperationId = "GetTheTask",
             Tags = ["Task"]
         )]
@@ -112,6 +113,31 @@ namespace BackEndProject.Controllers
                 await taskService.DeletedTaskId(id);
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
+        
+        [HttpPost, Route("changeStatus")]
+        [SwaggerOperation(
+            Summary = "Update an status by Task.",
+            Tags = ["Task"]
+        )]
+        public async Task<IActionResult> UpdateStatus([FromBody] TaskChangeStatusDto changeStatusDto)
+        {
+            try
+            {
+                await taskService.UpdateStatus(changeStatusDto);
+                
+                var successMessage = new { message = "Actualizado con éxito" };
+                var jsonSuccessMessage = JsonConvert.SerializeObject(successMessage);
+                
+                return Ok(jsonSuccessMessage);            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(HelperError.GetErrorAndInnerError(ex));
             }
             catch (Exception e)
             {

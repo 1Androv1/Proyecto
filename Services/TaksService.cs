@@ -50,4 +50,17 @@ public class TaksService(ITaskRepository taskRepository) : ITaskService
         var tasksDto = tasks.ConvertTaskListToDto<Tasks, TaskListDto>();
         return tasksDto;
     }
+    
+    public async Task UpdateStatus(TaskChangeStatusDto changeStatusDto)
+    {
+        int idTask = changeStatusDto.IdTask;
+        var status = await taskRepository.GetDetailTask(idTask);
+        
+        if (status == null)
+            throw new ValidationException($"La Tarea con Id: {idTask} no existe.");
+
+        var changeStatus = changeStatusDto.ConvertDtoToModel<TaskChangeStatusDto, Tasks>();
+        await taskRepository.UpdateStatus(changeStatus);
+    }
+
 }

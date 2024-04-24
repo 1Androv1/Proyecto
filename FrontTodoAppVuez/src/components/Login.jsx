@@ -8,8 +8,9 @@ import { contextProp } from '../context/context';
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const {setChangeForm, changeForm} = useContext(contextProp);
+    const { responseData, setResponseData } = useContext(contextProp);
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,12 +25,13 @@ export const LoginForm = () => {
 
         axios.post(ApiLogin, data)
         .then(response => {
-        // Manejar la respuesta exitosa
-        console.log('Datos recibidos:', response.data);
+            // Manejar la respuesta exitosa
+            console.log('Datos recibidos:', response.data);
+            setResponseData(response.data);
         })
         .catch(error => {
-        // Manejar el error
-        console.error('Error al obtener datos:', error);
+            // Manejar el error
+            console.error('Error al obtener datos:', error);
         });
     };
     

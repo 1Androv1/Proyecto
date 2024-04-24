@@ -70,4 +70,22 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
             .Where(f => f.NameTask != null && f.NameTask!.Contains(filter!))
             .ToListAsync();
     }
+    
+    public async Task UpdateStatus(Tasks? tasks)
+    {
+        if (tasks == null)
+        {
+            throw new ArgumentNullException(nameof(tasks), "La tarea proporcionada es nula.");
+        }
+
+        var taskExist = await sqlDbContext.Tasks!
+            .FirstOrDefaultAsync(t => t.IdTask == tasks.IdTask);
+
+        if (taskExist == null)
+            throw new InvalidOperationException($"No se encontró ninguna tarea con IdTask = {tasks.IdTask}.");
+
+        taskExist.StatusId = tasks.StatusId;
+        
+        await sqlDbContext.SaveChangesAsync();
+    }
 }
