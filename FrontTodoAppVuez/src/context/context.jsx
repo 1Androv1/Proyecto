@@ -5,10 +5,10 @@ export const contextProp = createContext();
 
 export const ContextProvider = ({ children }) => {
 const [changeForm, setChangeForm] = useState(false);
-
+const [responseData, setResponseData] = useState(null);
 
   return (
-    <contextProp.Provider value={{changeForm, setChangeForm}}>
+    <contextProp.Provider value={{changeForm, setChangeForm, responseData, setResponseData}}>
       {children}
     </contextProp.Provider>
   );
