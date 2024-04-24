@@ -9,7 +9,7 @@ export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {setChangeForm, changeForm} = useContext(contextProp);
-    const { responseData, setResponseData } = useContext(contextProp);
+    const {setResponseData } = useContext(contextProp);
 
 
     const handleSubmit = (event) => {
@@ -31,7 +31,7 @@ export const LoginForm = () => {
         })
         .catch(error => {
             // Manejar el error
-            console.error('Error al obtener datos:', error);
+        console.error('Error al obtener datos:', error);
         });
     };
     

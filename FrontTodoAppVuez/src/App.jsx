@@ -29,12 +29,12 @@ function App() {
         <DragAndDrop onPressOpenDialog={handleOpen}/> 
       </div>
       
-      {/* <div  className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] items-center justify-center'>
+       <div  className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] items-center justify-center'>
         { changeForm ?(<LoginForm/> ):(<RegisterForm />)
           
 
         }
-      </div> */}
+      </div> 
 
       <CreateTaskDialog onPress={handleClose}/>
     </main>
