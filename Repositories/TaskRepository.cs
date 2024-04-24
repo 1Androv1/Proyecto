@@ -32,7 +32,7 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
         {
             throw new InvalidOperationException($"No se encontró ninguna tarea con IdTask = {tasks.IdTask}.");
         }
-        taskExist!.NameTask = tasks!.NameTask;
+        taskExist.NameTask = tasks.NameTask;
         taskExist.Description = tasks.Description;
         taskExist.StatusId = tasks.StatusId;
         taskExist.StartTime = tasks.StartTime;
@@ -58,6 +58,16 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
             .Include(ts => ts.Status)
             .Include(u => u.User)
             .Include(u2 => u2.OwnerUser)
+            .ToListAsync();
+    }
+    
+    public async Task<List<Tasks>> FilterTask(string? filter)
+    {
+        return await sqlDbContext.Tasks!
+            .Include(ts => ts.Status)
+            .Include(u => u.User)
+            .Include(u2 => u2.OwnerUser)
+            .Where(f => f.NameTask != null && f.NameTask!.Contains(filter!))
             .ToListAsync();
     }
 }

@@ -29,6 +29,24 @@ namespace BackEndProject.Controllers
                 return StatusCode(500, HelperError.GetErrorAndInnerError(e));
             }
         }
+        
+        [HttpGet, Route("filterTask")]
+        [SwaggerOperation(
+            Description = "This endpoint is only for tests.",
+            OperationId = "GetTheTask",
+            Tags = ["Task"]
+        )]
+        public async Task<IActionResult> FilterTask(string filter)
+        {
+            try
+            {
+                return Ok(await taskService.FilterTask(filter));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
 
         [HttpPost, Route("saveTask")]
         [SwaggerOperation(

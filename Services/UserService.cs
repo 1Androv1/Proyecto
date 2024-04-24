@@ -28,7 +28,7 @@ public class UserService(IUserRepository userRepository) : IUserService
         return userDto;
     }
 
-    public async Task ChangeVerification(string email)
+    public async Task ChangeVerification(string? email)
     {
         await userRepository.ChangeVerification(email);
     }

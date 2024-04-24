@@ -1,6 +1,4 @@
-﻿using Models;
-
-namespace Dtos.Returns;
+﻿namespace Dtos.Returns;
 
 public class UserReturnDto
 {

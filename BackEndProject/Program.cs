@@ -16,8 +16,7 @@ builder.Services.AddSwaggerGen();
 
 // Configurar DbContext para Entity Framework Core
 builder.Services.AddDbContext<SqlDbContext>(options =>
-    options.UseSqlServer(glpsConnectionString,
-        builder => builder.MigrationsAssembly("BackEndProject")));
+    options.UseSqlServer(glpsConnectionString, b => b.MigrationsAssembly("BackEndProject")));
 
 // Registrar servicios y repositorios
 builder.Services.AddScoped<IUserService, UserService>();

@@ -43,4 +43,11 @@ public class TaksService(ITaskRepository taskRepository) : ITaskService
         var tasksDto = tasks.ConvertTaskListToDto<Tasks, TaskListDto>();
         return tasksDto;
     }
+    
+    public async Task<List<TaskListDto>> FilterTask(string? filter)
+    {
+        var tasks = await taskRepository.FilterTask(filter);
+        var tasksDto = tasks.ConvertTaskListToDto<Tasks, TaskListDto>();
+        return tasksDto;
+    }
 }
