@@ -10,4 +10,5 @@ public interface ITaskService
     Task DeletedTaskId(int idTask);
     Task<List<TaskListDto>> GetAllTask();
     Task<List<TaskListDto>> FilterTask(string? filter);
+    Task UpdateStatus(TaskChangeStatusDto changeStatusDto);
 }
