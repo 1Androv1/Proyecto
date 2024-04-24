@@ -1,47 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { TaskItemCompleted, TaskItemInProgress, TaskItemToDo } from "./TaskItem";
+import axios from "axios";
+import { GetAllTask } from "../coneccions/api";
+import { list } from "postcss";
 
 const DragAndDrop = () => {
-    const [tasks, setTasks] = useState([
-        { 
-            id: 1,
-            title: 'Deivid Tarea Con Texto Muy Largo largo larguisisisisisimo',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 1
-        },
-        { 
-            id: 2,
-            title: 'Tarea 2',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 1
-        },
-        { 
-            id: 3,
-            title: 'Tarea 3',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 3
-        },
-        { 
-            id: 4,
-            title: 'Tarea 4',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 2
-        },
-        { 
-            id: 5,
-            title: 'Tarea 5',
-            body: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit ipsum dolor.',
-            list: 2
-        },
-    ]);
+    const [ datatask, setDataTask ] = useState([])
+
+    useEffect(()=> {
+        axios.get(GetAllTask)
+        .then(response => {
+            if (response && response.data) {
+                const getTasks = response.data;
+                setDataTask(getTasks);
+            } else {
+                alert("La respuesta no contiene datos.");
+            }
+        })
+        .catch(error => {
+          // Manejar el error
+          console.error('Error al obtener datos:', error);
+        });
+    },[])
+        
+
+
+
+
+    console.log(JSON.stringify(datatask))
+
 
     const getList = (list) => {
-        return tasks.filter(item => item.list === list)
+        return datatask.filter(item => item.statusId === list)
     }
 
     const startDrag = (evt, item) => {
-        evt.dataTransfer.setData('itemID', item.id)
+        evt.dataTransfer.setData('itemID', item.idTask)
         console.log(item);
     }
 
@@ -51,15 +46,15 @@ const DragAndDrop = () => {
 
     const onDrop = (evt, list) => {
         const itemID = evt.dataTransfer.getData('itemID');
-        const item = tasks.find(item => item.id == itemID);
-        item.list = list;
+        const item = datatask.find(item => item.idTask == itemID);
+        item.statusId = list;
 
-        const newState = tasks.map(task => {
-            if(task.id === itemID) return item;
+        const newState = datatask.map(task => {
+            if(task.idTask === itemID) return item;
             return task
         })
 
-        setTasks(newState);
+        setDataTask(newState);
     }
 
     return (
@@ -70,8 +65,8 @@ const DragAndDrop = () => {
                 </header>
                 <div className='dd-zone' droppable="true" onDragOver={draggingOver} onDrop={(evt) => onDrop(evt, 1)}>
                     {getList(1).map(item => (
-                            <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.id} draggable onDragStart={(evt) => startDrag(evt, item)}>
-                                <TaskItemToDo item={item}/>
+                            <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.idTask} draggable onDragStart={(evt) => startDrag(evt, item)}>
+                                <TaskItemToDo tittle={item.nameTask}/>
                             </div>
                     ))}
                     <button className='outline-none bg-transparent focus:outline-none border-none justify-center items-center flex-row'>
@@ -87,8 +82,8 @@ const DragAndDrop = () => {
                 </header>
                 <div className='dd-zone' droppable="true" onDragOver={draggingOver} onDrop={(evt) => onDrop(evt, 2)}>
                     {getList(2).map(item => (
-                        <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.id} draggable onDragStart={(evt) => startDrag(evt, item)}>
-                            <TaskItemInProgress item={item}/>
+                        <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.idTask} draggable onDragStart={(evt) => startDrag(evt, item)}>
+                            <TaskItemInProgress tittle={item.nameTask}/>
                         </div>
                     ))}
                 </div>
@@ -101,8 +96,8 @@ const DragAndDrop = () => {
                 </header>
                 <div className='dd-zone' droppable="true" onDragOver={draggingOver} onDrop={(evt) => onDrop(evt, 3)}>
                     {getList(3).map(item => (
-                        <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.id} draggable onDragStart={(evt) => startDrag(evt, item)}>
-                            <TaskItemCompleted item={item}/>
+                        <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.idTask} draggable onDragStart={(evt) => startDrag(evt, item)}>
+                            <TaskItemCompleted tittle={item.nameTask}/>
                         </div>
                     ))}
                 </div>
