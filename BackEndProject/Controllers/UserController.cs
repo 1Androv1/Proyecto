@@ -60,6 +60,24 @@ namespace BackEndProject.Controllers
         {
             await userService.ChangeVerification(email);
         }
+        
+        [HttpGet, Route("allUser")]
+        [SwaggerOperation(
+            Summary = "Get user.",
+            OperationId = "AllUser",
+            Tags = ["User"]
+        )]
+        public async Task<IActionResult> AllUser()
+        {
+            try
+            {
+                return Ok(await userService.GetAllUser());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, HelperError.GetErrorAndInnerError(e));
+            }
+        }
     }
 }
 
