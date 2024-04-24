@@ -5,7 +5,7 @@ import axios from "axios";
 import { GetAllTask } from "../coneccions/api";
 import { list } from "postcss";
 
-const DragAndDrop = () => {
+const DragAndDrop = ({onPressOpenDialog}) => {
     const [ datatask, setDataTask ] = useState([])
 
     useEffect(()=> {
@@ -23,12 +23,6 @@ const DragAndDrop = () => {
           console.error('Error al obtener datos:', error);
         });
     },[])
-        
-
-
-
-
-    console.log(JSON.stringify(datatask))
 
 
     const getList = (list) => {
@@ -69,7 +63,7 @@ const DragAndDrop = () => {
                                 <TaskItemToDo tittle={item.nameTask}/>
                             </div>
                     ))}
-                    <button className='outline-none bg-transparent focus:outline-none border-none justify-center items-center flex-row'>
+                    <button onClick={onPressOpenDialog} className='outline-none bg-transparent focus:outline-none border-none justify-center items-center flex-row'>
                         <strong className='text-2xl text-blue-900'>+</strong>
                         <span className='text-white font-bold capitalize text-sm mb-3'>Add Task</span>
                     </button>
