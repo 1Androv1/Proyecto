@@ -97,7 +97,7 @@ export const RegisterForm = () => {
                 <div className="flex">
                     <label>
                         <input
-                            className="input bg-slate-200"
+                            className="input bg-slate-200 text-black"
                             type="text"
                             placeholder=""
                             name="firstname"
@@ -110,7 +110,7 @@ export const RegisterForm = () => {
     
                     <label>
                         <input
-                            className="input bg-slate-200"
+                            className="input bg-slate-200 text-black"
                             type="text"
                             placeholder=""
                             name="lastname"
@@ -124,7 +124,7 @@ export const RegisterForm = () => {
     
                 <label>
                     <input
-                        className="input bg-slate-200"
+                        className="input bg-slate-200 text-black"
                         type="email"
                         placeholder=""
                         name="email"
@@ -137,7 +137,7 @@ export const RegisterForm = () => {
     
                 <label>
                     <input
-                        className="input bg-slate-200"
+                        className="input bg-slate-200 text-black"
                         type="password"
                         placeholder=""
                         name="password"
@@ -149,7 +149,7 @@ export const RegisterForm = () => {
                 </label>
                 <label>
                     <input
-                        className="input bg-slate-200"
+                        className="input bg-slate-200 text-black"
                         type="password"
                         placeholder=""
                         name="confirmPassword"
