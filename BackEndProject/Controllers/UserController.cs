@@ -35,7 +35,7 @@ namespace BackEndProject.Controllers
         [SwaggerOperation(
             Summary = "Get the user information with the email.",
             Description = "The email comes from the HttpContext.",
-            OperationId = "GetUser",
+            OperationId = "LoginUser",
             Tags = ["User"]
         )]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDto userLoginDto)
@@ -48,6 +48,17 @@ namespace BackEndProject.Controllers
             {
                 return StatusCode(500, HelperError.GetErrorAndInnerError(e));
             }
+        }
+        
+        [HttpGet, Route("verifyEmail/{email}")]
+        [SwaggerOperation(
+            Summary = "Verification email.",
+            OperationId = "VerifyEmail",
+            Tags = ["User"]
+        )]
+        public async Task VerifyEmail(string email)
+        {
+            await userService.ChangeVerification(email);
         }
     }
 }

@@ -10,4 +10,5 @@ public class UserReturnDto
     public string? Email { set; get; }
     public string? Password { set; get; }
     public int RolId { set; get; }
+    public bool Verification { set; get; }
 }

@@ -20,7 +20,16 @@ public class UserService(IUserRepository userRepository) : IUserService
     {
         string? userEmail = userLoginDto.Email;
         var userModel = await userRepository.GetUserInSession(userEmail);
+        
+        if(userModel.Verification == false)
+            throw new ValidationException($"Por favor verifica el correo electronico.");
+
         var userDto = userModel.ConvertUserToDto<Users, UserReturnDto>();
         return userDto;
+    }
+
+    public async Task ChangeVerification(string email)
+    {
+        await userRepository.ChangeVerification(email);
     }
 }

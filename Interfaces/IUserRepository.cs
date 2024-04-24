@@ -7,4 +7,5 @@ public interface IUserRepository
     Task SaveNewUser(Users userModel);
     Task<Users> GetUserInSession(string? userEmail);
     Task<Users> ValidateIfUserExist(int? idUser);
+    Task ChangeVerification(string? email);
 }

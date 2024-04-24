@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Models;
 
@@ -17,4 +18,5 @@ public class Users
     public string? Password { set; get; }
     public int RolId { set; get; }
     [ForeignKey("RolId")] public Rols? Rols { get; set; }
+    public bool Verification { set; get; } = false;
 }
