@@ -1,12 +1,12 @@
 
-export const TaskItemToDo = ({item}) => {
+export const TaskItemToDo = ({tittle}) => {
     return (
         <>
             <img className='w-4 h-4 opacity-0 mr-1' src="src/assets/DragIcon.svg" alt="Drag" style={{ pointerEvents: 'none', userSelect: 'none' }} />
             <div className='w-11/12 contenedor-opacidad rounded-md'>
                 <div className='flex w-full h-full flex-row p-1'>
-                    <div className="flex flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap">
-                        <strong className='text-white text-lg font-bold ml-2 '>{item.title}</strong>
+                    <div className="flex flex-1 items-center text-ellipsis whitespace-nowrap">
+                        <strong className='text-white text-lg font-bold ml-2 '>{tittle}</strong>
                     </div>
                     <div className="flex justify-end gap-2 items-center pl-2 pr-2">
                         <button className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
@@ -32,14 +32,14 @@ export const TaskItemToDo = ({item}) => {
 }
 
 
-export const TaskItemInProgress = ({item}) => {
+export const TaskItemInProgress = ({tittle}) => {
     return (
         <>
             <img className='w-4 h-4 opacity-0 mr-1' src="src/assets/DragIcon.svg" alt="Drag" style={{ pointerEvents: 'none', userSelect: 'none' }} />
             <div className='w-11/12 contenedor-opacidad rounded-md'>
                 <div className='flex w-full h-full flex-row p-1'>
-                    <div className="flex flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap">
-                        <strong className='text-white text-lg font-bold ml-2 '>{item.title}</strong>
+                    <div className="flex flex-1 items-center text-ellipsis whitespace-nowrap">
+                        <strong className='text-white text-lg font-bold ml-2 '>{tittle}</strong>
                     </div>
                     <div className="flex justify-end gap-2 items-center pl-2 pr-2">
                         <span>00:00:00</span>
@@ -57,14 +57,14 @@ export const TaskItemInProgress = ({item}) => {
 
 }
 
-export const TaskItemCompleted = ({item}) => {
+export const TaskItemCompleted = ({tittle}) => {
     return (
         <>
             <img className='w-4 h-4 opacity-0 mr-1' src="src/assets/DragIcon.svg" alt="Drag" style={{ pointerEvents: 'none', userSelect: 'none' }} />
             <div className='w-11/12 contenedor-opacidad rounded-md'>
                 <div className='flex w-full h-full flex-row p-1'>
-                    <div className="flex flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap">
-                        <strong className='text-white text-lg font-bold ml-2 '>{item.title}</strong>
+                    <div className="flex flex-1 items-center text-ellipsis whitespace-nowrap">
+                        <strong className='text-white text-lg font-bold ml-2 '>{tittle}</strong>
                     </div>
                     <div className="flex justify-end gap-2 items-center pl-2 pr-2">
                         <span>completed</span>
