@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { TaskItemCompleted, TaskItemInProgress, TaskItemToDo } from "./TaskItem";
 import axios from "axios";
 import { GetAllTask, changeStatus } from "../coneccions/api";
+import toast from 'react-hot-toast';
+import { contextProp } from "../context/context";
 
 const DragAndDrop = ({onPressOpenDialog}) => {
     const [ datatask, setDataTask ] = useState([])
     const [ dropinfo, setDropInfo ] = useState([])
+    const { setInfoEdit } = useContext(contextProp)
+ 
 
 
     useEffect(()=> {
@@ -72,6 +76,40 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             
     },[dropinfo])
 
+    const eliminarItem = (id) => {
+        setDataTask(prevLista => prevLista.filter(item => item.idTask !== id));
+
+        const DeleteTask = `http://localhost:5235/api/deleteTask/${id}`;
+
+        axios.get(DeleteTask)
+        .then(response => {
+            console.log(response.data)
+            toast.success("tarea eliminada con exito")
+            console.log('El elemento ha sido eliminado exitosamente.');
+            // Aquí puedes actualizar tu UI o realizar cualquier otra acción necesaria después de eliminar el elemento
+        })
+        .catch(error => {
+            toast.error("error al eliminar esta tarea")
+            console.error('Error al eliminar el elemento:', error);
+        });
+    };
+
+    const editItem = (id) => {
+        // Filtrar el arreglo para encontrar el elemento con el ID dado
+        const item = datatask.find(item => item.idTask === id);
+    
+        if (item) {
+            // Si se encuentra un elemento con el ID dado, imprimirlo en la consola
+            console.log('Elemento encontrado:', item);
+            setInfoEdit(item);
+        } else {
+            console.log('Elemento no encontrado.');
+        }
+    };
+
+
+    
+
 
     return (
         <main className='flex rounded-xl justify-around relative w-full'>
@@ -82,12 +120,12 @@ const DragAndDrop = ({onPressOpenDialog}) => {
                 <div className='dd-zone' droppable="true" onDragOver={draggingOver} onDrop={(evt) => onDrop(evt, 1)}>
                     {getList(1).map(item => (
                             <div className='containt-father flex flex-row justify-center items-center w-11/12' key={item.idTask} draggable onDragStart={(evt) => startDrag(evt, item)}>
-                                <TaskItemToDo tittle={item.nameTask}/>
+                                <TaskItemToDo tittle={item.nameTask} onDelete={() => eliminarItem(item.idTask)} onEditId={() => editItem(item.idTask)}/>
                             </div>
                     ))}
                     <button onClick={onPressOpenDialog} className='outline-none bg-transparent focus:outline-none border-none justify-center items-center flex-row'>
                         <strong className='text-2xl text-blue-900'>+</strong>
-                        <span className='text-white font-bold capitalize text-sm mb-3'>Add Task</span>
+                        <span className='text-white font-bold capitalize text-sm mb-3'> Add Task</span>
                     </button>
                 </div>
             </section>

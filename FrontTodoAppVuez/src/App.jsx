@@ -4,7 +4,7 @@ import {Header} from './components/Header'
 import { RegisterForm, LoginForm } from './components/Login'
 import DragAndDrop from './components/PrincipalCarContext'
 import { contextProp } from './context/context'
-import { CreateTaskDialog } from './components/CreateTask'
+import { CreateTaskDialog, EditTaskDialog } from './components/CreateTask'
 import { Toaster } from 'react-hot-toast';
 import { Footer } from './components/Footer'
 
@@ -47,6 +47,7 @@ function App() {
             <DragAndDrop onPressOpenDialog={handleOpen}/> 
           </div>
         <CreateTaskDialog onPress={handleClose}/>
+        <EditTaskDialog onPress={handleClose} />
         <Footer />
       </>
      ):(
