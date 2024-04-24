@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { TaskItemCompleted, TaskItemInProgress, TaskItemToDo } from "./TaskItem";
 import axios from "axios";
-import { GetAllTask } from "../coneccions/api";
-import { list } from "postcss";
+import { GetAllTask, changeStatus } from "../coneccions/api";
 
 const DragAndDrop = ({onPressOpenDialog}) => {
     const [ datatask, setDataTask ] = useState([])
+    const [ dropinfo, setDropInfo ] = useState([])
+
 
     useEffect(()=> {
         axios.get(GetAllTask)
@@ -42,14 +43,36 @@ const DragAndDrop = ({onPressOpenDialog}) => {
         const itemID = evt.dataTransfer.getData('itemID');
         const item = datatask.find(item => item.idTask == itemID);
         item.statusId = list;
-
+        setDropInfo({ idTask: itemID, statusId: list });
+    
         const newState = datatask.map(task => {
             if(task.idTask === itemID) return item;
             return task
-        })
-
+        });
+    
         setDataTask(newState);
     }
+
+    useEffect(()=>{
+        if(dropinfo){
+            console.log(dropinfo)
+            axios.post(changeStatus, dropinfo, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+              // Manejar el error
+              console.error('Error al obtener datos:', error);
+            });
+        }
+            
+     
+    },[dropinfo])
+
 
     return (
         <main className='flex rounded-xl justify-around relative w-full'>
