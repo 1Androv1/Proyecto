@@ -15,8 +15,8 @@ function App() {
       */}
 
       <div  className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] items-center justify-center'>
-    <LoginForm/> 
-      {/*  <RegisterForm />*/}
+    {/*<LoginForm/> */}
+        <RegisterForm />
       </div>
       
      
