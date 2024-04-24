@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ApiLogin } from "../coneccions/api";
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -9,8 +10,23 @@ export const LoginForm = () => {
         // Aquí puedes realizar las acciones necesarias, como enviar los datos a un servidor
         console.log('Email:', email);
         console.log('Password:', password);
-    };
 
+        const data = {
+            email: email,
+            password: password
+        };
+
+        axios.post(ApiLogin, data)
+        .then(response => {
+        // Manejar la respuesta exitosa
+        console.log('Datos recibidos:', response.data);
+        })
+        .catch(error => {
+        // Manejar el error
+        console.error('Error al obtener datos:', error);
+        });
+    };
+    
     return (
         <form className="form_container max-w-[400px]" onSubmit={handleSubmit}>
             <div className="title_container" style={{width: '100%'}}>
