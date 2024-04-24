@@ -7,9 +7,10 @@ export const ContextProvider = ({ children }) => {
 const [changeForm, setChangeForm] = useState(false);
 const [valueDialog, setValueDialog] = useState(false);
 const [responseData, setResponseData] = useState([]);
+const [ statusUser, setStatusUser ] = useState(false);
 
   return (
-    <contextProp.Provider value={{changeForm, setChangeForm, responseData, setResponseData, valueDialog, setValueDialog}}>
+    <contextProp.Provider value={{changeForm, setChangeForm, responseData, setResponseData, valueDialog, setValueDialog,statusUser, setStatusUser }}>
       {children}
     </contextProp.Provider>
   );
