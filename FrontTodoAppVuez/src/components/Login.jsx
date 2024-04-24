@@ -15,7 +15,6 @@ export const LoginForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aquí puedes realizar las acciones necesarias, como enviar los datos a un servidor
 
         const data = {
             email: email,
@@ -24,18 +23,18 @@ export const LoginForm = () => {
 
         axios.post(ApiLogin, data)
         .then(response => {
-            // Manejar la respuesta exitosa
             toast('Logeado con Exito', {
                 icon: '👏',
-              });
+            });
             setStatusUser(true)
             setResponseData(response.data);
         })
         .catch(error => {
-            // Manejar el error
             console.error('Error al obtener datos:', error);
             setStatusUser(false)
-            toast.error("Usuario No Existente")
+            toast('Verifica Email o Usuario no existente', {
+                icon: '👏',
+            });
         });
     };
     
@@ -136,9 +135,16 @@ export const RegisterForm = () => {
             axios.post(ApiRegister, data)
             .then(response => {
                 console.log('Datos recibidos:', response.data);
+                toast('Usuario creado con exito.', {
+                    icon: '👏',
+                });
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
             })
             .catch(error => {
-                console.error('Error al obtener datos:', error);
+                toast.error(error)
             });
         };
     
@@ -213,6 +219,7 @@ export const RegisterForm = () => {
                 </label>
                 <button className="submit" type="submit">Submit</button>
                 <p className="signin">Already have an account? <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign in</a></p>
+                <div><Toaster/></div>
             </form>
         );
 };

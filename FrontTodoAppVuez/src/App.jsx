@@ -39,8 +39,7 @@ function App() {
 
   return (
     <main className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] overflow-hidden box-content'>
-     
-     {statusUser ? (
+      {statusUser ? (
       <>
         <Header />
           <div className='flex flex-row flex-1 p-4 justify-between'>
@@ -51,7 +50,7 @@ function App() {
         <ShowInformation onPress={handleClose} />
         <Footer />
       </>
-     ):(
+      ):(
         <div  className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] items-center justify-center'>
           { changeForm ?(<RegisterForm /> ):(<LoginForm/>) }
         </div> 

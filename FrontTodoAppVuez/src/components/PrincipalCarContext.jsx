@@ -10,10 +10,10 @@ const DragAndDrop = ({onPressOpenDialog}) => {
     const [ datatask, setDataTask ] = useState([])
     const [ dropinfo, setDropInfo ] = useState([])
     const { setInfoEdit, setInfo} = useContext(contextProp)
- 
-
 
     useEffect(()=> {
+        
+
         axios.get(GetAllTask)
         .then(response => {
             if (response && response.data) {
@@ -25,8 +25,9 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             }
         })
         .catch(error => {
-          console.error('Error al obtener datos:', error);
+            console.error('Error al obtener datos:', error);
         });
+
     },[])
 
 
@@ -102,10 +103,6 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             console.log('Elemento no encontrado.');
         }
     };
-
-
-    
-
 
     return (
         <main className='flex rounded-xl justify-around relative w-full'>

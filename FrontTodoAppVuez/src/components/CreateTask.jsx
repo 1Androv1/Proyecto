@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { contextProp } from "../context/context"
 import { SaveTask, getUsuarios, updateTask } from "../coneccions/api";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const CreateTaskDialog = ({onPress}) => {
     const { valueDialog, responseData } = useContext(contextProp)
@@ -47,6 +48,7 @@ export const CreateTaskDialog = ({onPress}) => {
         axios.post(SaveTask, data)
         .then(response => {
             console.log('Datos recibidos:', response.data);
+            toast.success("Tarea Guardada con exito.")
         })
         .catch(error => {
             console.error('Error al obtener datos:', error);
