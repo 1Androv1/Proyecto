@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ApiLogin } from "../coneccions/api";
 import { ApiRegister } from "../coneccions/api";
+import toast, { Toaster } from 'react-hot-toast';
 
 import axios from 'axios';
 import { contextProp } from '../context/context';
@@ -9,14 +10,12 @@ export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {setChangeForm, changeForm} = useContext(contextProp);
-    const {setResponseData } = useContext(contextProp);
+    const {setResponseData, setStatusUser } = useContext(contextProp);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Aquí puedes realizar las acciones necesarias, como enviar los datos a un servidor
-        console.log('Email:', email);
-        console.log('Password:', password);
 
         const data = {
             email: email,
@@ -26,12 +25,15 @@ export const LoginForm = () => {
         axios.post(ApiLogin, data)
         .then(response => {
             // Manejar la respuesta exitosa
-            console.log('Datos recibidos:', response.data);
+            toast("Logeado con Exito")
+            setStatusUser(true)
             setResponseData(response.data);
         })
         .catch(error => {
             // Manejar el error
-        console.error('Error al obtener datos:', error);
+            console.error('Error al obtener datos:', error);
+            setStatusUser(false)
+            toast("Usuario No Existente")
         });
     };
     
@@ -88,6 +90,7 @@ export const LoginForm = () => {
                 <span>Sign In</span>
             </button>
             <p className="signin w-2/3">Without an account, does my dog count? create one here <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign up</a></p>
+            <div><Toaster/></div>
         </form>
     );
 };
