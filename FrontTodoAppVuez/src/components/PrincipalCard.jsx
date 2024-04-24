@@ -10,7 +10,7 @@ export const PrincipalCard = ({Tittle}) => {
                 <div className='w-full h-[50px]'></div>
                 <div className='w-full h-[50px]'></div>
                 <button>
-                    +ADD TASK
+                    + ADD TASK
                 </button>
             </section>
         </main>

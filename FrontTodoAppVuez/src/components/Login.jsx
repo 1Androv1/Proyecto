@@ -25,7 +25,9 @@ export const LoginForm = () => {
         axios.post(ApiLogin, data)
         .then(response => {
             // Manejar la respuesta exitosa
-            toast("Logeado con Exito")
+            toast('Logeado con Exito', {
+                icon: '👏',
+              });
             setStatusUser(true)
             setResponseData(response.data);
         })
@@ -33,7 +35,7 @@ export const LoginForm = () => {
             // Manejar el error
             console.error('Error al obtener datos:', error);
             setStatusUser(false)
-            toast("Usuario No Existente")
+            toast.error("Usuario No Existente")
         });
     };
     

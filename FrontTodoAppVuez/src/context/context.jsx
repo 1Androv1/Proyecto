@@ -7,7 +7,7 @@ export const ContextProvider = ({ children }) => {
 const [changeForm, setChangeForm] = useState(false);
 const [valueDialog, setValueDialog] = useState(false);
 const [responseData, setResponseData] = useState([]);
-const [ statusUser, setStatusUser ] = useState(false);
+const [ statusUser, setStatusUser ] = useState(true);
 
 
 
