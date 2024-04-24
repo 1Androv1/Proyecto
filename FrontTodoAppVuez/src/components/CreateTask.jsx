@@ -10,7 +10,7 @@ export const CreateTaskDialog = ({onPress}) => {
     const [startTime, setStartTime] = useState(new Date().toISOString()); 
     const [endTime, setEndTime] = useState(new Date().toISOString()); 
     const [usersavailable, setUsersavailable] = useState([]);
-    const [userSelected, setSelected] = useState(""); 
+    const [userSelected, setSelected] = useState(0); 
 
     const handleChange = (e) => {
         setSelected(e.target.value); 
