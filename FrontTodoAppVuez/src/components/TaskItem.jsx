@@ -105,22 +105,26 @@ export const TaskItemCompleted = ({ tittle }) => {
 
 
 
-export const TasItemSearch = ({ tittle, status }) => {
+export const TasItemSearch = ({ tittle, status, IdTask }) => {
+
+    const handleShowInfo = () => {
+        IdTask()
+    }
     return (
-            <div className='flex w-full justify-center items-center flex-row'>
-                <div className='w-11/12 contenedor-opacidad rounded-md'>
-                    <div className='flex w-full h-full flex-row p-1'>
-                        <div className="flex flex-1 items-center text-ellipsis whitespace-nowrap">
-                            <strong className='text-white text-lg font-bold ml-2'>{tittle}</strong>
-                        </div>
-                        <div className="flex justify-end gap-2 items-center pl-2 pr-2">
-                            <strong className='text-xs'>{status}</strong>
-                            <button className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
-                                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="m 4 2 c 0 -0.265625 0.105469 -0.519531 0.292969 -0.707031 c 0.390625 -0.390625 1.023437 -0.390625 1.414062 0 l 6 6 c 0.1875 0.1875 0.292969 0.441406 0.292969 0.707031 s -0.105469 0.519531 -0.292969 0.707031 l -6 6 c -0.390625 0.390625 -1.023437 0.390625 -1.414062 0 c -0.1875 -0.1875 -0.292969 -0.441406 -0.292969 -0.707031 s 0.105469 -0.519531 0.292969 -0.707031 l 5.292969 -5.292969 l -5.292969 -5.292969 c -0.1875 -0.1875 -0.292969 -0.441406 -0.292969 -0.707031 z m 0 0" fill="#6bb8d1"></path> </g></svg>
-                            </button>
-                        </div>
+        <div className='flex w-full justify-center items-center flex-row'>
+            <div className='w-11/12 contenedor-opacidad rounded-md'>
+                <div className='flex w-full h-full flex-row p-1'>
+                    <div className="flex flex-1 items-center text-ellipsis whitespace-nowrap">
+                        <strong className='text-white text-lg font-bold ml-2'>{tittle}</strong>
+                    </div>
+                    <div className="flex justify-end gap-2 items-center pl-2 pr-2">
+                        <strong className='text-xs'>{status}</strong>
+                        <button onClick={handleShowInfo} className="h-full w-4 flex items-center justify-center p-0 mr-0 outline-none border-none bg-transparent focus:outline-none" style={{ overflow: 'visible' }}>
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="m 4 2 c 0 -0.265625 0.105469 -0.519531 0.292969 -0.707031 c 0.390625 -0.390625 1.023437 -0.390625 1.414062 0 l 6 6 c 0.1875 0.1875 0.292969 0.441406 0.292969 0.707031 s -0.105469 0.519531 -0.292969 0.707031 l -6 6 c -0.390625 0.390625 -1.023437 0.390625 -1.414062 0 c -0.1875 -0.1875 -0.292969 -0.441406 -0.292969 -0.707031 s 0.105469 -0.519531 0.292969 -0.707031 l 5.292969 -5.292969 l -5.292969 -5.292969 c -0.1875 -0.1875 -0.292969 -0.441406 -0.292969 -0.707031 z m 0 0" fill="#6bb8d1"></path> </g></svg>
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }

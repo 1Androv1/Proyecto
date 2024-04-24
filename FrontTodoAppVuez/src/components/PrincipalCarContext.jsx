@@ -9,7 +9,7 @@ import { contextProp } from "../context/context";
 const DragAndDrop = ({onPressOpenDialog}) => {
     const [ datatask, setDataTask ] = useState([])
     const [ dropinfo, setDropInfo ] = useState([])
-    const { setInfoEdit } = useContext(contextProp)
+    const { setInfoEdit, setInfo} = useContext(contextProp)
  
 
 
@@ -19,6 +19,7 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             if (response && response.data) {
                 const getTasks = response.data;
                 setDataTask(getTasks);
+                setInfo(getTasks)
             } else {
                 alert("La respuesta no contiene datos.");
             }

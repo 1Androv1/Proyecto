@@ -1,12 +1,14 @@
 import './styles.css'; 
 import { filterTask } from "../coneccions/api";
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { TasItemSearch } from './TaskItem';
+import { contextProp } from '../context/context';
 
 export const SearchTask = () => {
     const [searchTask, setSearchTask] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const { setShowInformacion, setValueSearch } = useContext(contextProp)
 
     const handleSubmit = () => {
         const filtro = searchTask;
@@ -20,6 +22,13 @@ export const SearchTask = () => {
                 console.error('Error al obtener datos:', error);
             });
     };
+
+    const idItem = (id) => {
+        setShowInformacion(true)
+        setValueSearch(id)
+    }
+
+    
 
     return(
         <div className="flex flex-col justify-center w-full">
@@ -36,9 +45,9 @@ export const SearchTask = () => {
                 </div>
             </div>
             <div className='flex w-full justify-center items-center flex-col'>
-                <div className='flex w-[28%] bg-slate-950 rounded-2xl z-50 h-full flex-col p-2'>
+                <div className='flex w-[28%] bg-slate-950 rounded-2xl z-20 h-full flex-col p-2'>
                     {searchResults.map(result => (
-                        <TasItemSearch key={result.idTask} tittle={result.nameTask} status={result.status.nameStatus} />
+                            <TasItemSearch key={result.idTask} tittle={result.nameTask} status={result.status.nameStatus} IdTask={() => idItem(result.idTask)}/>
                     ))}
                 </div>
             </div>

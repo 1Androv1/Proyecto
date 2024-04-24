@@ -10,10 +10,15 @@ const [editDialog, setEditDialog] = useState(false);
 const [responseData, setResponseData] = useState([]);
 const [statusUser, setStatusUser ] = useState(false);
 const [datatask, setDataTask] = useState([]);
-const [infoEdit, setInfoEdit ] = useState([])
+const [infoEdit, setInfoEdit ] = useState([]);
+const [info, setInfo ] = useState([]);
+const [valueSearch, setValueSearch ] = useState([]);
+
+
+const [ showinformation, setShowInformacion ] = useState(false)
 
   return (
-    <contextProp.Provider value={{changeForm, setChangeForm, responseData, setResponseData, valueDialog, setValueDialog,statusUser, setStatusUser, editDialog, setEditDialog, infoEdit, setInfoEdit  }}>
+    <contextProp.Provider value={{changeForm, setChangeForm, responseData, setResponseData, valueDialog, setValueDialog,statusUser, setStatusUser, editDialog, setEditDialog, infoEdit, setInfoEdit, showinformation, setShowInformacion, info, setInfo, valueSearch, setValueSearch  }}>
       {children}
     </contextProp.Provider>
   );
