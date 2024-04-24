@@ -66,11 +66,10 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             })
             .catch(error => {
               // Manejar el error
-              console.error('Error al obtener datos:', error);
+            console.error('Error al obtener datos:', error);
             });
         }
             
-     
     },[dropinfo])
 
 

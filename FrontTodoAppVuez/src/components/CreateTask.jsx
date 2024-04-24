@@ -15,8 +15,6 @@ export const CreateTaskDialog = ({onPress}) => {
     const handleChange = (e) => {
         setSelected(e.target.value); 
     };
-
-    console.log("VALOR: " + userSelected)
     
     useEffect(()=>{
         if(usersavailable){
