@@ -1,6 +1,6 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { contextProp } from "../context/context"
-import { SaveTask } from "../coneccions/api";
+import { SaveTask, getUsuarios } from "../coneccions/api";
 import axios from "axios";
 
 export const CreateTaskDialog = ({onPress}) => {
@@ -9,10 +9,24 @@ export const CreateTaskDialog = ({onPress}) => {
     const [description, setDescription] = useState('');
     const [startTime, setStartTime] = useState(new Date().toISOString()); 
     const [endTime, setEndTime] = useState(new Date().toISOString()); 
+    const [ usersavailable, setUsersavailable] = useState([]);
 
-    console.log("Respuesta create task: " + responseData);
-
-    console.log(valueDialog)
+    useEffect(()=>{
+        if(usersavailable){
+            axios.get(getUsuarios)
+            .then(response => {
+                console.log('Datos recibidos:', response.data);
+                if(response && response.data){
+                    setUsersavailable(response.data)
+                }else{
+                    alert("La respuesta no contiene datos.");
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener datos:', error);
+            });
+        }
+    },[])
 
     const handleSubmit = () => {
         const data = {
@@ -77,6 +91,20 @@ export const CreateTaskDialog = ({onPress}) => {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="flex flex-col">
+                                        <label class="leading-loose">Choose User for Task</label>
+                                        <select
+                                        disabled
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        >
+                                            <option selected>Choose User</option>
+                                            {usersavailable.map(item => (
+                                                <option key={item.id} value={item.id}>
+                                                    {item.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
                             </div>
                             <div class="pt-4 flex items-center space-x-4">
                                 <button onClick={onPress} class="flex justify-center items-center w-full text-gray-900 bg-transparent hover:bg-slate-600 px-4 py-3 rounded-md focus:outline-none">
