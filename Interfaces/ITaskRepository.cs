@@ -9,4 +9,5 @@ public interface ITaskRepository
     Task UpdateTask(Tasks? tasks);
     Task DeletedTaskId(int idTask);
     Task<List<Tasks>> GetAllTasks();
+    Task<List<Tasks>> FilterTask(string? filter);
 }

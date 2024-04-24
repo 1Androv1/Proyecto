@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ApiLogin } from "../coneccions/api";
+import { ApiRegister } from "../coneccions/api";
+
+import axios from 'axios';
+import { contextProp } from '../context/context';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const {setChangeForm, changeForm} = useContext(contextProp);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -52,7 +58,7 @@ export const LoginForm = () => {
                     title="Input title" 
                     name="input-name" 
                     type="text" 
-                    className="input_field bg-slate-200" 
+                    className="input_field bg-slate-200 text-black" 
                     id="email_field" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -70,7 +76,7 @@ export const LoginForm = () => {
                     title="Input title" 
                     name="input-name" 
                     type="password" 
-                    className="input_field bg-slate-200" 
+                    className="input_field bg-slate-200 text-black"  
                     id="password_field" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -79,18 +85,21 @@ export const LoginForm = () => {
             <button title="Sign In" type="submit" className="sign-in_btn">
                 <span>Sign In</span>
             </button>
-            <p className="signin w-2/3">Without an account, does my dog count? create one here <a href="#">Sign up</a></p>
+            <p className="signin w-2/3">Without an account, does my dog count? create one here <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign up</a></p>
         </form>
     );
 };
 
 export const RegisterForm = () => {
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [name, setName] = useState('');
+        const [lastname, setLastName] = useState('');
+
+        const {setChangeForm, changeForm} = useContext(contextProp);
+
         const [formData, setFormData] = useState({
-            firstname: '',
-            lastname: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
+            
         });
     
         const handleChange = (e) => {
@@ -104,6 +113,26 @@ export const RegisterForm = () => {
             e.preventDefault();
             // Aquí puedes agregar la lógica para enviar los datos del formulario a tu backend
             console.log(formData);
+
+            e.preventDefault();
+            // Aquí puedes realizar las acciones necesarias, como enviar los datos a un servidor
+
+            const data = {
+                email: email,
+                password: password,
+                name: name,
+                lastname: lastname,
+                rolId: 2,
+                verification: false
+            };
+
+            axios.post(ApiRegister, data)
+            .then(response => {
+                console.log('Datos recibidos:', response.data);
+            })
+            .catch(error => {
+                console.error('Error al obtener datos:', error);
+            });
         };
     
         return (
@@ -118,7 +147,7 @@ export const RegisterForm = () => {
                             placeholder=""
                             name="firstname"
                             value={formData.firstname}
-                            onChange={handleChange}
+                            onChange={(e) => setName(e.target.value)}
                             required
                         />
                         <span>Firstname</span>
@@ -131,7 +160,7 @@ export const RegisterForm = () => {
                             placeholder=""
                             name="lastname"
                             value={formData.lastname}
-                            onChange={handleChange}
+                            onChange={(e) => setLastName(e.target.value)}
                             required
                         />
                         <span>Lastname</span>
@@ -145,7 +174,7 @@ export const RegisterForm = () => {
                         placeholder=""
                         name="email"
                         value={formData.email}
-                        onChange={handleChange}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <span>Email</span>
@@ -158,7 +187,7 @@ export const RegisterForm = () => {
                         placeholder=""
                         name="password"
                         value={formData.password}
-                        onChange={handleChange}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <span>Password</span>
@@ -176,7 +205,7 @@ export const RegisterForm = () => {
                     <span>Confirm password</span>
                 </label>
                 <button className="submit" type="submit">Submit</button>
-                <p className="signin">Already have an account? <a href="#">Sign in</a></p>
+                <p className="signin">Already have an account? <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign in</a></p>
             </form>
         );
 };

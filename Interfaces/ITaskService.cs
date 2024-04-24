@@ -9,4 +9,5 @@ public interface ITaskService
     Task<TaksDto?> GetDetailTask(int idTask);
     Task DeletedTaskId(int idTask);
     Task<List<TaskListDto>> GetAllTask();
+    Task<List<TaskListDto>> FilterTask(string? filter);
 }
