@@ -105,6 +105,7 @@ public class TaskRepository(SqlDbContext sqlDbContext) : ITaskRepository
         taskExist.StatusId = tasks.StatusId;
         taskExist.StartTime = tasks.StartTime;
         taskExist.EndTime = tasks.EndTime;
+        taskExist.OwnerUserId = tasks.OwnerUserId;
         
         await sqlDbContext.SaveChangesAsync();
     }

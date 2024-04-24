@@ -24,7 +24,6 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             }
         })
         .catch(error => {
-          // Manejar el error
           console.error('Error al obtener datos:', error);
         });
     },[])
@@ -69,7 +68,6 @@ const DragAndDrop = ({onPressOpenDialog}) => {
                 console.log(response)
             })
             .catch(error => {
-              // Manejar el error
             console.error('Error al obtener datos:', error);
             });
         }
@@ -86,7 +84,6 @@ const DragAndDrop = ({onPressOpenDialog}) => {
             console.log(response.data)
             toast.success("tarea eliminada con exito")
             console.log('El elemento ha sido eliminado exitosamente.');
-            // Aquí puedes actualizar tu UI o realizar cualquier otra acción necesaria después de eliminar el elemento
         })
         .catch(error => {
             toast.error("error al eliminar esta tarea")
@@ -95,11 +92,9 @@ const DragAndDrop = ({onPressOpenDialog}) => {
     };
 
     const editItem = (id) => {
-        // Filtrar el arreglo para encontrar el elemento con el ID dado
         const item = datatask.find(item => item.idTask === id);
     
         if (item) {
-            // Si se encuentra un elemento con el ID dado, imprimirlo en la consola
             console.log('Elemento encontrado:', item);
             setInfoEdit(item);
         } else {

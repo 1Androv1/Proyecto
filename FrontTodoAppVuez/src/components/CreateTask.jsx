@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { contextProp } from "../context/context"
-import { SaveTask, getUsuarios } from "../coneccions/api";
+import { SaveTask, getUsuarios, updateTask } from "../coneccions/api";
 import axios from "axios";
 
 export const CreateTaskDialog = ({onPress}) => {
@@ -52,7 +52,7 @@ export const CreateTaskDialog = ({onPress}) => {
             console.error('Error al obtener datos:', error);
         });
     };
-    
+
     return (
         valueDialog ? (
         <dialog className="bg-slate-800 h-full w-full bg-opacity-80 flex justify-center items-center" onSubmit={handleSubmit}>
@@ -137,7 +137,7 @@ export const EditTaskDialog = ({onPress}) => {
         setSelected(e.target.value); 
     };
 
-    console.log(infoEdit)
+    console.log("info: " + infoEdit.statusId)
 
     
     useEffect(()=>{
@@ -170,7 +170,7 @@ export const EditTaskDialog = ({onPress}) => {
             endTime: endTime,
             statusId: 1,
             userCreateId: responseData.idUser,
-            ownerUserId: userSelected
+            ownerUserId: userSelected 
         };
 
         axios.post(SaveTask, data)
@@ -182,6 +182,26 @@ export const EditTaskDialog = ({onPress}) => {
         });
     };
     
+    const handleSubmitUpdate = () => {
+        const data = {
+            idTask: infoEdit.idTask,
+            nameTask: infoEdit.nameTask,
+            description: description,
+            startTime: startTime,
+            endTime: endTime,
+            statusId: infoEdit.statusId,
+            userCreateId: responseData.idUser,
+            ownerUserId: userSelected || infoEdit.ownerUserId
+        };
+
+        axios.post(updateTask, data)
+        .then(response => {
+            console.log('Datos recibidos:', response.data);
+        })
+        .catch(error => {
+            console.error('Error al obtener datos:', error);
+        });
+    };
     return (
         editDialog ? (
         <dialog className="bg-slate-800 h-full w-full bg-opacity-80 flex justify-center items-center" onSubmit={handleSubmit}>
@@ -209,7 +229,7 @@ export const EditTaskDialog = ({onPress}) => {
                                     <div class="flex flex-col">
                                         <label class="leading-loose">Start</label>
                                         <div class="relative focus-within:text-gray-600 text-gray-400">
-                                            <input type="date" onChange={(e) => setStartTime(e.target.value)} class="bg-transparent pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="YYYY-MM-DD" />
+                                            <input type="date" value={startTime || infoEdit.startTime}  onChange={(e) => setStartTime(e.target.value)} class="bg-transparent pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="YYYY-MM-DD" />
                                             <div class="absolute left-3 top-2">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                             </div>
@@ -218,7 +238,7 @@ export const EditTaskDialog = ({onPress}) => {
                                     <div class="flex flex-col">
                                         <label class="leading-loose">End</label>
                                         <div class="relative focus-within:text-gray-600 text-gray-400">
-                                            <input type="date" onChange={(e) => setEndTime(e.target.value)} class="bg-transparent pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="26/02/2020" />
+                                            <input type="date" value={endTime || infoEdit.endTime}  onChange={(e) => setEndTime(e.target.value)} class="bg-transparent pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="YYYY-MM-DD" />
                                             <div class="absolute left-3 top-2">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                             </div>
@@ -227,7 +247,7 @@ export const EditTaskDialog = ({onPress}) => {
                                 </div>
                                 <div class="flex flex-col">
                                         <label class="leading-loose">Choose User for Task</label>
-                                        <select value={userSelected} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        <select value={userSelected || infoEdit.ownerUserId} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         >
                                             <option>Choose User</option>
                                             {usersavailable.map(item => (
@@ -242,7 +262,11 @@ export const EditTaskDialog = ({onPress}) => {
                                 <button onClick={handleCloseModal} class="flex justify-center items-center w-full text-gray-900 bg-transparent hover:bg-slate-600 px-4 py-3 rounded-md focus:outline-none">
                                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
                                 </button>
-                                <button onClick={() => handleSubmit()} class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Create</button>
+                                    {setInfoEdit.length > 0 ? (
+                                        <button onClick={() => handleSubmitUpdate()} className="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Update</button>
+                                    ) : (
+                                        <button onClick={() => handleSubmit()} className="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Create</button>
+                                    )}                            
                             </div>
                         </div>
                     </div>

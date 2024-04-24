@@ -8,4 +8,5 @@ public class TaskUpdateDto
     public DateTime? StartTime { set; get; }
     public DateTime? EndTime { set; get; }
     public int StatusId { set; get; }
+    public int OwnerUserId { set; get; }
 }
