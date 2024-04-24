@@ -32,4 +32,9 @@ public class UserService(IUserRepository userRepository) : IUserService
     {
         await userRepository.ChangeVerification(email);
     }
+    
+    public async Task<List<UsersFilterDto>> GetAllUser()
+    {
+        return await userRepository.GetAllUser();
+    }
 }

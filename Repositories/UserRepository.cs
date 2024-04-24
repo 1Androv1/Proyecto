@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Contexts;
+using Dtos;
 using Interfaces;
 using Models;
 using Microsoft.EntityFrameworkCore;
@@ -89,4 +90,16 @@ public class UserRepository(SqlDbContext sqlDbContext) : IUserRepository
         
         await sqlDbContext.SaveChangesAsync();
     }
+    
+    public async Task<List<UsersFilterDto>> GetAllUser()
+    {
+        return await sqlDbContext.Users!
+            .Select(user => new UsersFilterDto()
+            {
+                IdUser = user.IdUser,
+                Name = user.Name + " " + user.LastName
+            })
+            .ToListAsync();
+    }
+
 }
