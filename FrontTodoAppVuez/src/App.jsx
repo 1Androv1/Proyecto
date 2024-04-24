@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast';
 import { Footer } from './components/Footer'
 
 function App() {
-  const {changeForm, statusUser, setValueDialog} = useContext(contextProp);
+  const {changeForm, statusUser, setValueDialog, setStatusUser} = useContext(contextProp);
 
   const handleOpen = () => {
     console.log("si entro")
@@ -21,7 +21,21 @@ function App() {
     setValueDialog(false);
   };
 
-console.log(statusUser)
+  useEffect(()=>{
+    console.log(statusUser)
+    if(statusUser == true){
+      localStorage.setItem('statusUser', true);
+      setStatusUser(true)
+      console.log("se almacena "+statusUser)
+    }else if(statusUser == false){
+      localStorage.setItem('statusUser', false);
+      console.log("se almacena "+statusUser)
+      setStatusUser(false)
+      localStorage.clear();
+      localStorage.removeItem('statusUser')
+    }
+
+  },[statusUser])
 
   return (
     <main className='flex flex-1 h-screen w-full bg-[#0E0F12] flex-col xl:w-[1280px] overflow-hidden box-content'>
