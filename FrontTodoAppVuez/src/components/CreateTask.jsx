@@ -9,8 +9,15 @@ export const CreateTaskDialog = ({onPress}) => {
     const [description, setDescription] = useState('');
     const [startTime, setStartTime] = useState(new Date().toISOString()); 
     const [endTime, setEndTime] = useState(new Date().toISOString()); 
-    const [ usersavailable, setUsersavailable] = useState([]);
+    const [usersavailable, setUsersavailable] = useState([]);
+    const [userSelected, setSelected] = useState(""); 
 
+    const handleChange = (e) => {
+        setSelected(e.target.value); 
+    };
+
+    console.log("VALOR: " + userSelected)
+    
     useEffect(()=>{
         if(usersavailable){
             axios.get(getUsuarios)
@@ -36,7 +43,7 @@ export const CreateTaskDialog = ({onPress}) => {
             endTime: endTime,
             statusId: 1,
             userCreateId: responseData.idUser,
-            ownerUserId: responseData.idUser
+            ownerUserId: userSelected
         };
 
         axios.post(SaveTask, data)
@@ -93,13 +100,11 @@ export const CreateTaskDialog = ({onPress}) => {
                                 </div>
                                 <div class="flex flex-col">
                                         <label class="leading-loose">Choose User for Task</label>
-                                        <select
-                                        disabled
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        <select value={userSelected} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         >
-                                            <option selected>Choose User</option>
+                                            <option>Choose User</option>
                                             {usersavailable.map(item => (
-                                                <option key={item.id} value={item.id}>
+                                                <option key={item.idUser} value={item.idUser}>
                                                     {item.name}
                                                 </option>
                                             ))}
