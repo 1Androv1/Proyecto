@@ -5,6 +5,8 @@ import axios from "axios";
 export const contextProp = createContext();
 
 export const ContextProvider = ({ children }) => {
+    const [changeForm, setChangeForm] = useState(false);
+    
     axios.get(ApiLocalHost)
     .then(response => {
       // Manejar la respuesta exitosa
@@ -16,7 +18,7 @@ export const ContextProvider = ({ children }) => {
     });
 
   return (
-    <contextProp.Provider value={{}}>
+    <contextProp.Provider value={{changeForm, setChangeForm}}>
       {children}
     </contextProp.Provider>
   );

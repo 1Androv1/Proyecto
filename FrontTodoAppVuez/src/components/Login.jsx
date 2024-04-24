@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ApiLogin } from "../coneccions/api";
 import { ApiRegister } from "../coneccions/api";
 
 import axios from 'axios';
+import { contextProp } from '../context/context';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const {setChangeForm, changeForm} = useContext(contextProp);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -82,7 +85,7 @@ export const LoginForm = () => {
             <button title="Sign In" type="submit" className="sign-in_btn">
                 <span>Sign In</span>
             </button>
-            <p className="signin w-2/3">Without an account, does my dog count? create one here <a href="#">Sign up</a></p>
+            <p className="signin w-2/3">Without an account, does my dog count? create one here <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign up</a></p>
         </form>
     );
 };
@@ -92,6 +95,8 @@ export const RegisterForm = () => {
         const [password, setPassword] = useState('');
         const [name, setName] = useState('');
         const [lastname, setLastName] = useState('');
+
+        const {setChangeForm, changeForm} = useContext(contextProp);
 
         const [formData, setFormData] = useState({
             
@@ -200,7 +205,7 @@ export const RegisterForm = () => {
                     <span>Confirm password</span>
                 </label>
                 <button className="submit" type="submit">Submit</button>
-                <p className="signin">Already have an account? <a href="#">Sign in</a></p>
+                <p className="signin">Already have an account? <a href="#" onClick={(e) => setChangeForm(!changeForm)}>Sign in</a></p>
             </form>
         );
 };
